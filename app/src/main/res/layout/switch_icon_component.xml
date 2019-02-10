@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="swIcon"
+            type="com.example.mrrobot.ihome.components.SwitchIconComponent"/>
+    </data>
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swicContainer"
+    android:layout_width="100dp"
+    android:layout_height="110dp"
+    android:orientation="vertical"
+    android:gravity="center"
+    >
+
+    <com.github.zagum.switchicon.SwitchIconView
+        android:id="@+id/swicSwitchIcon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:padding="8dp"
+
+        app:si_animation_duration="500"
+        app:si_disabled_alpha=".9"
+        app:si_disabled_color="#888"
+        app:si_enabled="false"
+        app:si_no_dash="true"
+        app:si_tint_color="?attr/color_accent"
+        app:srcCompat="@drawable/ic_3d_rotation_black_24dp" />
+
+    <com.victor.loading.rotate.RotateLoading
+        android:id="@+id/swicLoading"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:visibility="gone"
+        app:loading_color="#236587"
+        app:loading_width="3dp" />
+
+    <TextView
+        android:layout_marginTop="5dp"
+        android:id="@+id/swicTitle"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="teeeeeitle" />
+
+</LinearLayout>
+

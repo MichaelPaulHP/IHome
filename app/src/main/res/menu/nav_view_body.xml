@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+
+    <group android:checkableBehavior="single">
+
+
+        <item
+            android:id="@+id/navigation_home"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="@string/title_home" />
+
+        <item
+            android:id="@+id/navigation_rooms"
+            android:icon="@drawable/ic_view_stream_black_24dp"
+            android:title="Rooms" />
+
+        <item
+            android:id="@+id/navigation_devices"
+            android:icon="@drawable/ic_device_hub_black_24dp"
+            android:title="Devices" />
+        <item
+            android:id="@+id/navigation_security"
+            android:icon="@drawable/ic_security_black_24dp"
+            android:title="Secutity" />
+        <item
+            android:id="@+id/navigation_family"
+            android:icon="@drawable/ic_people_black_24dp"
+            android:title="Family"
+            />
+
+
+    </group>
+
+
+    <item
+        android:id="@+id/navigation_subheader"
+        android:title=" "
+        android:icon="@drawable/ic_settings_white_24dp">
+
+        <menu>
+            <item
+                android:id="@+id/configurationOption"
+                android:title="Personalizar"
+                android:icon="@drawable/ic_settings_white_24dp"/>
+        </menu>
+    </item>
+
+</menu>

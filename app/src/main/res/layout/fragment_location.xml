@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="locationVM"
+            type="com.example.mrrobot.ihome.ui.family.LocationViewModel"/>
+    </data>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <!--LIST OF PERSON-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="200dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/locationInfo"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/locationCounter"/>
+        </LinearLayout>
+
+        <LinearLayout
+            xmlns:mapbox="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/layoutMap"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <com.mapbox.mapboxsdk.maps.MapView
+                android:id="@+id/mapView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                mapbox:mapbox_cameraTargetLat="-16.3988"
+                mapbox:mapbox_cameraTargetLng="-71.5369"
+                mapbox:mapbox_cameraZoom="12"
+                />
+            <!--mapbox:mapbox_styleUrl="mapbox://styles/mrmichaelbot/cjgb51qz22dzm2sq5c6gzzzzn"-->
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>
+

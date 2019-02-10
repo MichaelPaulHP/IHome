@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="?attr/color_primary_dark"
+    tools:context=".DialogsFragment.ThemeDialogFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Temas"
+        android:textSize="20sp"
+        android:layout_marginVertical="15dp"
+        />
+    <RadioGroup
+        android:id="@+id/themesRadioGroup"
+        android:layout_width="200dp"
+        android:paddingHorizontal="20dp"
+        android:buttonTint="?attr/color_secondary"
+        android:layout_height="170dp">
+
+        <RadioButton
+            android:id="@+id/DEFAULT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:buttonTint="?attr/color_secondary"
+            android:text="DEFAULT"
+            android:textColor="?attr/color_secondary" />
+        <RadioButton
+            android:buttonTint="?attr/color_secondary"
+            android:textColor="?attr/color_secondary"
+            android:id="@+id/DARK"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DARK"
+            />
+        <RadioButton
+            android:buttonTint="?attr/color_secondary"
+            android:textColor="?attr/color_secondary"
+            android:text="LIGHT"
+            android:id="@+id/LIGHT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <RadioButton
+            android:buttonTint="?attr/color_secondary"
+            android:textColor="?attr/color_secondary"
+            android:id="@+id/BLACK"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BLACK"/>
+        <RadioButton
+            android:buttonTint="?attr/color_secondary"
+            android:textColor="?attr/color_secondary"
+            android:id="@+id/WHITE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="WHITE"/>
+        <!--
+        <TextView
+            android:drawableLeft="@drawable/ic_format_color_fill_white_24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="Temas:"
+            android:layout_gravity="center"/>
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="60dp"
+           android:orientation="horizontal">
+
+            <RadioButton
+            android:id="@+id/DEFAULT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+           <View
+               android:layout_width="40dp"
+               android:layout_height="40dp"
+               android:background="#292F4F"
+               android:layout_marginRight="20dp"/>
+
+            <RadioButton
+            android:id="@+id/DARK"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+           />
+
+           <View
+               android:layout_width="40dp"
+               android:layout_height="40dp"
+               android:background="#222" />
+       </LinearLayout>
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="60dp">
+           <RadioButton
+               android:id="@+id/LIGHT"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" />
+           <View
+               android:layout_width="40dp"
+               android:layout_height="40dp"
+               android:background="#EDEDED" />
+       </LinearLayout>
+
+
+        -->
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="Otros:"
+        android:textSize="20dp"
+        />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:id="@+id/botBarContainer"
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            >
+
+            <com.github.zagum.switchicon.SwitchIconView
+
+                android:id="@+id/botBarSwitchIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                app:si_animation_duration="500"
+                app:si_disabled_alpha=".9"
+                app:si_disabled_color="#888"
+                app:si_enabled="false"
+                app:si_no_dash="true"
+                app:si_tint_color="?attr/color_accent"
+                app:srcCompat="@drawable/ic_view_stream_black_24dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="Barra de navegacion"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/styleMapContainer"
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            >
+
+            <com.github.zagum.switchicon.SwitchIconView
+                android:id="@+id/styleMapSwitchIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                app:si_animation_duration="500"
+                app:si_disabled_alpha=".9"
+                app:si_disabled_color="#888"
+                app:si_enabled="false"
+                app:si_no_dash="true"
+                app:si_tint_color="?attr/color_accent"
+                app:srcCompat="@drawable/ic_place_black_24dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="Mapa Dark" />
+        </LinearLayout>
+    </LinearLayout>
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/color_accent"
+        android:textColor="?attr/color_secondary"
+        android:text="Guardar"/>
+</LinearLayout>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorWhite">#FFF</color>
+    <color name="colorLead">#F4F4F6</color>
+    <color name="colorBlack">#000</color>
+    <color name="colorDark">#222</color>
+    <color name="colorRed">#ef3a4f</color>
+    <color name="colorBotNavForDark">#383B5D</color>
+    <color name="colorPrimary">#15192e</color>
+    <color name="colorPrimaryDark">#292F4F</color><!--20253f-->
+    <color name="colorSecondDark">#2A2C39</color>
+    <color name="colorAccent">#D3AAF6</color>
+    <color name="colorAccentSecond">#009688</color>
+
+
+    <!--LIGHT-->
+    <color name="primary_light">#DEDEDE</color>
+    <color name="primary_dark_light">#222222</color>
+    <color name="foreground_dark">#ffffff</color>
+
+    <!--DARK-->
+    <color name="dark30">#303030</color>
+    <color name="darkAccent">#8FC9C3</color>
+    <color name="colorWrite">@color/colorWhite</color>
+
+    <color name="colorGreen">#00BB00</color>
+    <array name="gradientClear">
+        <item>@color/colorRed</item>
+        <item>@color/colorGreen</item>
+        <item>@color/colorDark</item>
+    </array>
+</resources>

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:float="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF"
+    android:orientation="vertical"
+    tools:context=".LoginActivity">
+    <!--top-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:gravity="center">
+        <com.github.zagum.switchicon.SwitchIconView
+            android:id="@+id/chatSwitchIcon"
+            android:layout_width="50dp"
+            android:layout_height="60dp"
+            android:layout_alignParentTop="true"
+            android:padding="8dp"
+            app:si_animation_duration="500"
+            app:si_disabled_alpha=".9"
+            app:si_disabled_color="#000"
+            app:si_enabled="false"
+            app:si_no_dash="true"
+            app:si_tint_color="?attr/color_accent"
+            app:srcCompat="@drawable/ic_home_black_24dp" />
+
+        <!--
+        <View
+            android:layout_width="140dp"
+            android:layout_height="5dp"
+            android:layout_alignStart="@+id/loginTextView"
+            android:layout_alignTop="@+id/register_button"
+            android:background="#159B8F" />
+
+        <View
+            android:layout_width="100dp"
+            android:layout_height="5dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:background="#B6B6B6" />
+
+        <TextView
+            android:id="@+id/loginTextView"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
+            android:layout_alignTop="@+id/register_button"
+            android:layout_toStartOf="@+id/register_button"
+            android:gravity="center|left"
+            android:text="Iniciar Sessión"
+            android:textColor="#303030"
+            />
+
+        <TextView
+            android:gravity="center|left"
+            android:id="@+id/register_button"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:text="Registrarse"
+            android:textColor="#555"
+
+        />
+          -->
+    </RelativeLayout>
+
+    <!--Mid-->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_gravity="fill"
+        android:orientation="vertical"
+        android:paddingHorizontal="80dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:drawableBottom="@drawable/ic_person_black_24dp"
+                android:drawableTint="#222"
+                android:paddingBottom="10dp" />
+
+            <com.wrapp.floatlabelededittext.FloatLabeledEditText
+                android:layout_width="182dp"
+                android:layout_height="wrap_content"
+                float:fletPaddingBottom="10dp">
+
+                <EditText
+                    android:id="@+id/editTextEmailAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_mono"
+                    android:hint="Usuario"
+                    android:inputType="textEmailAddress"
+                    android:textColorHint="#AAA"
+                    android:textCursorDrawable="@null"
+                    android:textSize="18sp"
+                    android:typeface="normal" />
+            </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:drawableBottom="@drawable/ic_lock_white_24dp"
+                android:drawableTint="#222"
+                android:paddingBottom="10dp" />
+
+            <com.wrapp.floatlabelededittext.FloatLabeledEditText
+                android:layout_width="182dp"
+                android:layout_height="wrap_content"
+                float:fletPaddingBottom="10dp">
+
+                <EditText
+                    android:id="@+id/editText_Password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_mono"
+                    android:hint="Contraseña"
+                    android:inputType="textPassword"
+                    android:textCursorDrawable="@null"
+                    android:textSize="18sp"
+                    android:typeface="normal" />
+            </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="25dp"
+            android:fontFamily="@font/roboto_mono"
+            android:text="Google: "
+            android:textColor="#303030"
+            android:textSize="18sp"
+            android:typeface="normal" />
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/sign_in_google_button"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+
+
+    <!--Bot-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:gravity="bottom|right">
+
+        <!--
+        <Switch
+            android:id="@+id/switch2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="34dp"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="Recordarme    "
+            android:textAlignment="textEnd"
+            android:textColor="#303030"
+            android:textColorLink="#009788" />
+        -->
+        <Button
+            android:id="@+id/sign_in"
+            android:layout_width="180dp"
+            android:layout_height="60dp"
+            android:background="#222"
+            android:fontFamily="@font/roboto_mono"
+            android:text="Iniciar sesión"
+            android:textColor="#eee"
+            android:textSize="16sp"
+            android:typeface="normal" />
+
+
+    </LinearLayout>
+</LinearLayout>

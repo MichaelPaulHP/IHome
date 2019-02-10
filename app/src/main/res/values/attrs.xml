@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- color -->
+
+    <attr name="color_primary" format="color" />
+    <attr name="color_secondary" format="color"/>
+    <attr name="color_primary_dark" format="color"/>
+    <attr name="color_secondary_dark" format="color"/>
+    <attr name="color_accent" format="color"/>
+    <attr name="color_disable" format="color"/>
+    <!--MAPS-->
+    <attr name="themeMap" format="string"/>
+    <!--OTHER-->
+    <attr name="color_item" format="color" />
+    <attr name="color_botNav" format="color"/>
+
+</resources>

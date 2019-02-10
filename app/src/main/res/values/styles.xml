@@ -1,0 +1,105 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <!--   color for the app bar and other primary UI elements -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+
+        <!--   a darker variant of the primary color, used for
+           the status bar (on Android 5.0+) and contextual app bars -->
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+
+        <!--   a secondary color for controls like checkboxes and text fields -->
+        <item name="colorAccent">@color/colorAccent</item>
+
+
+        <item name="color_primary" >@color/colorWhite</item>
+        <item name="color_secondary">@color/colorDark</item>
+        <item name="color_primary_dark" >@color/colorLead</item>
+        <item name="color_secondary_dark" >@color/colorLead</item>
+        <item name="color_accent">@color/colorAccent</item>
+        <item name="color_disable">#A8B1BB</item>
+
+        <item name="color_item">@color/colorWhite</item>
+        <item name="color_botNav">@color/colorBotNavForDark</item>
+
+    </style>
+
+    <!-- THEME FULL WHITE  -->
+    <style name="AppThemeLight" parent="Theme.AppCompat.Light.NoActionBar" >
+
+        <item name="colorPrimary">@color/colorBlack</item> <!-- primary UI elements   -->
+        <item name="colorPrimaryDark">@color/colorBlack</item> <!-- the status bar    -->
+        <item name="android:colorBackground">@color/colorWhite</item> <!-- background   -->
+        <item name="colorAccent">@color/darkAccent</item> <!-- views    -->
+        <item name="android:textColor">@color/colorDark</item> <!-- text color    -->
+
+
+        <item name="color_primary" >@color/colorWhite</item> <!-- background   -->
+        <item name="color_secondary">@color/colorDark</item><!-- icons and text    -->
+        <item name="color_primary_dark" >@color/primary_light</item><!-- fondo de bot nav y  nav view   -->
+        <item name="color_secondary_dark" >@color/primary_light</item>
+        <item name="color_accent">@color/darkAccent</item>
+        <item name="color_disable">#A8B1BB</item>
+
+    </style>
+    <!-- THEME FULL #222 DARK  -->
+    <style name="AppThemeDark" parent="Theme.AppCompat.Light.NoActionBar" >
+
+        <item name="colorPrimary">#2C2C39</item>
+        <item name="colorPrimaryDark">#2C2C39</item>
+        <item name="android:colorBackground">#2C2C39</item>
+        <item name="colorAccent">@color/darkAccent</item>
+        <item name="android:textColor">@color/colorLead</item>
+
+
+        <item name="color_primary" >#1D212C</item>
+        <item name="color_secondary">#C1C2D1</item>
+        <item name="color_primary_dark" >#1D212C</item>
+        <item name="color_secondary_dark" >#1D212C</item>
+        <item name="color_accent">#C08118</item>
+        <item name="color_disable">#A8B1BB</item>
+
+    </style>
+    <!-- THEME FULL BLACK  -->
+    <style name="AppThemeBlack" parent="Theme.AppCompat.Light.NoActionBar" >
+
+        <item name="colorPrimary">@color/colorBlack</item> <!-- primary UI elements   -->
+        <item name="colorPrimaryDark">@color/colorBlack</item> <!-- the status bar    -->
+        <item name="android:colorBackground">@color/colorBlack</item> <!-- background   -->
+        <item name="colorAccent">@color/colorWhite</item> <!-- views    -->
+        <item name="android:textColor">@color/colorLead</item> <!-- text color    -->
+        <item name="android:fontFamily">@font/roboto_mono</item>
+
+        <item name="color_primary" >@color/colorBlack</item> <!-- background   -->
+        <item name="color_secondary">@color/colorLead</item><!-- icons and text  icon  -->
+        <item name="color_primary_dark" >@color/colorBlack</item><!-- fondo de bot nav y  nav view   -->
+        <item name="color_secondary_dark" >#131313</item><!-- background components   -->
+        <item name="color_accent">@color/colorRed</item>
+        <item name="color_disable">#A8B1BB</item>
+
+
+    </style>
+    <!-- THEME FULL WHITE  -->
+    <style name="AppThemeWhite" parent="Theme.AppCompat.Light.NoActionBar" >
+
+        <item name="colorPrimary">@color/colorLead</item> <!-- primary UI elements   -->
+        <item name="colorPrimaryDark">@color/colorWhite</item> <!-- the status bar    -->
+        <item name="android:colorBackground">@color/colorWhite</item> <!-- background   -->
+        <item name="colorAccent">@color/colorLead</item> <!-- views    -->
+        <item name="android:textColor">@color/colorDark</item> <!-- text color    -->
+        <item name="android:fontFamily">@font/roboto_mono</item>
+
+    <item name="color_primary" >@color/colorWhite</item> <!-- background   -->
+    <item name="color_secondary">@color/colorDark</item><!-- icons and text  icon  -->
+    <item name="color_primary_dark" >@color/colorWhite</item><!-- fondo de bot nav y  nav view   -->
+    <item name="color_secondary_dark" >#E7E7E7</item><!-- background components   -->
+    <item name="color_accent">@color/colorRed</item>
+    <item name="color_disable">#A8B1BB</item>
+
+
+    </style>
+    <!-- OTHER -->
+
+</resources>

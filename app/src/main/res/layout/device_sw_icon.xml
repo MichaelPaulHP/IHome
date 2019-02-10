@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="device"
+            type="com.example.mrrobot.ihome.models.Device" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="90dp"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:onClick='@{(v)->device.changeValueBoolean()}'
+        android:orientation="vertical">
+
+        <com.github.zagum.switchicon.SwitchIconView
+
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:padding="8dp"
+
+            app:si_animation_duration="500"
+            app:si_disabled_alpha=".9"
+            app:si_disabled_color="#888"
+            app:si_enabled='@{device.value=="true"}'
+            app:si_no_dash="true"
+            app:si_tint_color="?attr/color_accent"
+            app:srcCompat="@{device.icon}" />
+
+        <com.victor.loading.rotate.RotateLoading
+
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:visibility="gone"
+            app:loading_color="#236587"
+            app:loading_width="3dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+
+            android:layout_height="35dp"
+
+            android:gravity="center"
+            android:text="@{device.name}" />
+
+    </LinearLayout>
+</layout>

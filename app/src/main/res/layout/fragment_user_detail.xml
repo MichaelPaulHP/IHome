@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.family.UserDetailFragment"
+    android:background="?attr/color_secondary_dark"
+    android:paddingHorizontal="20dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/barUserDetail"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/imageUser"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginRight="20dp"
+                android:src="@drawable/ic_person_black_24dp"
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="2dp" />
+
+            <TextView
+                android:id="@+id/nameUser"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/imageUser"
+                android:gravity="center"
+                android:text="Username" />
+
+
+            <com.github.zagum.switchicon.SwitchIconView
+                android:id="@+id/chatSwitchIcon"
+                android:layout_width="50dp"
+                android:layout_height="60dp"
+                android:layout_alignParentTop="true"
+                android:layout_toStartOf="@+id/locationSwitchIcon"
+                android:padding="8dp"
+                app:si_animation_duration="500"
+                app:si_disabled_alpha=".9"
+                app:si_disabled_color="?attr/color_secondary"
+                app:si_enabled="false"
+                app:si_no_dash="true"
+                app:si_tint_color="?attr/color_accent"
+                app:srcCompat="@drawable/ic_chat_white_24dp" />
+
+            <com.github.zagum.switchicon.SwitchIconView
+                android:id="@+id/locationSwitchIcon"
+                android:layout_width="50dp"
+                android:layout_height="60dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:padding="8dp"
+                app:si_animation_duration="500"
+                app:si_disabled_alpha=".9"
+                app:si_disabled_color="?attr/color_secondary"
+                app:si_enabled="false"
+                app:si_no_dash="true"
+                app:si_tint_color="?attr/color_accent"
+                app:srcCompat="@drawable/ic_location_on_white_24dp" />
+
+
+        </RelativeLayout>
+
+        <FrameLayout
+            android:id="@+id/plusOptionFrameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:visibility="gone"
+            >
+
+        </FrameLayout>
+    </LinearLayout>
+</LinearLayout>

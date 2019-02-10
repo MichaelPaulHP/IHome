@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="device"
+            type="com.example.mrrobot.ihome.models.Device"/>
+    </data>
+    <RelativeLayout
+        android:layout_width="110dp"
+        android:layout_height="50dp"
+
+        >
+
+
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:src="@{device.iconState}" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="8dp"
+            android:gravity="left"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@{device.icon}"
+                android:tint="?attr/color_secondary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:gravity="top|bottom|start"
+                android:paddingStart="2dp"
+                android:paddingEnd="3dp"
+                android:text="@{device.value}"
+                android:textAlignment="textStart" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:gravity="top|bottom|start"
+                android:text="@{device.unit}" />
+        </LinearLayout>
+
+
+
+
+    </RelativeLayout>
+</layout>

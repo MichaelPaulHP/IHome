@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!--TOP BAR -->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:background="?attr/color_primary_dark"
+        android:gravity="center"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:title="Inicio"
+        app:titleTextColor="?attr/color_secondary"
+
+        >
+
+    </android.support.v7.widget.Toolbar>
+    <!--FIN TOP BAR-->
+
+    <!--CONTAINER OF FRAMES-->
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/toolbar"
+        >
+
+    </FrameLayout>
+    <!--FIN CONTAINER OF FRAMES-->
+
+        <android.support.design.widget.BottomNavigationView
+            android:paddingHorizontal="30dp"
+            android:id="@+id/navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="?attr/color_primary_dark"
+            app:itemIconTint="?attr/color_secondary"
+            app:itemTextColor="?attr/color_secondary"
+            app:menu="@menu/navigation" />
+
+
+
+
+</RelativeLayout>

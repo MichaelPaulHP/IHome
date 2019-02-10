@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="deviceVM"
+            type="com.example.mrrobot.ihome.ui.device.DeviceViewModel"/>
+        <variable
+            name="device"
+            type="com.example.mrrobot.ihome.models.Device"/>
+    </data>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!--HEAD-->
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+
+            >
+            <!--ICON STATE-->
+            <ImageView
+                android:id="@+id/weather_image"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@{device.iconState}"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                />
+
+        </RelativeLayout>
+        <!--BODY-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="vertical"
+            android:gravity="center">
+            <!--VALUE-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{device.value}"
+                />
+
+            <io.ghyeok.stickyswitch.widget.StickySwitch
+                android:id="@+id/sticky_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:ss_animationDuration="600"
+                app:ss_iconPadding="18dp"
+                app:ss_iconSize="22dp"
+                app:ss_leftIcon="@drawable/ic_vertical_line"
+                app:ss_leftText="ON"
+                app:ss_rightIcon="@drawable/ic_circle"
+                app:ss_rightText="OFF"
+                app:ss_selectedTextSize="14sp"
+                app:ss_sliderBackgroundColor="?attr/color_secondary_dark"
+                app:ss_switchColor="?attr/color_accent"
+
+                app:ss_textSize="12sp"
+                app:ss_animationType="line"/>
+        </LinearLayout>
+        <!-- app:ss_textColor="" LA-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{device.message}"
+                />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</layout>

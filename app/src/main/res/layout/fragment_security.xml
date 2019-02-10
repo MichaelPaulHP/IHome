@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.SecurityFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight=".4"
+            android:gravity="center"
+            android:padding="20dp"
+            android:layout_height="0dp">
+            <!-- IMAGE USER -->
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/circleImageUser"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_person_black_24dp"
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="0dp" />
+
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".5"
+            android:orientation="vertical"
+            android:paddingEnd="25dp"
+            android:paddingStart="25dp"
+            >
+            <!-- OPTIONS -->
+            <LinearLayout
+                android:background="?attr/color_primary_dark"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:id="@+id/notificationSwContainer"
+                >
+                <!-- NOTIFICATION -->
+                <com.github.zagum.switchicon.SwitchIconView
+                    android:id="@+id/swNotification"
+                    android:layout_width="65dp"
+                    android:layout_height="70dp"
+                    android:padding="8dp"
+                    app:si_animation_duration="500"
+                    app:si_disabled_alpha=".9"
+                    app:si_disabled_color="?attr/color_secondary"
+                    app:si_enabled="true"
+                    app:si_no_dash="true"
+                    app:si_tint_color="?attr/color_accent"
+                    app:srcCompat="@drawable/ic_place_black_24dp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:textColor="?attr/color_secondary"
+                    android:text="Notificaciones" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:orientation="vertical"
+                android:background="?attr/color_primary_dark"
+                android:gravity="center">
+                <!-- CONFIG -->
+                <!--
+                <ImageButton
+                    android:id="@+id/configButton"
+                    android:layout_width="65dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/ic_settings_white_24dp"
+                    android:tint="?attr/color_secondary"
+                    android:background="@android:color/transparent"
+                   />-->
+                <com.github.zagum.switchicon.SwitchIconView
+                    android:id="@+id/configButton"
+                    android:layout_width="65dp"
+                    android:layout_height="70dp"
+                    android:padding="8dp"
+                    app:si_animation_duration="500"
+                    app:si_disabled_alpha=".9"
+                    app:si_disabled_color="?attr/color_secondary"
+                    app:si_enabled="false"
+                    app:si_no_dash="true"
+                    app:si_tint_color="?attr/color_accent"
+                    app:srcCompat="@drawable/ic_settings_white_24dp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:textColor="?attr/color_secondary"
+                    android:text="Configuración" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true">
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+
+                android:layout_marginStart="0dp"
+                android:layout_marginBottom="0dp">
+
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+
+
+</FrameLayout>
