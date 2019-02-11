@@ -7,14 +7,21 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.HandlerThread;
+import android.os.Looper;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
 import com.example.mrrobot.ihome.Config.Traking;
+import com.example.mrrobot.ihome.Services.ApiHome.HomeApiService;
+import com.example.mrrobot.ihome.Services.ApiHome.IHomeApiService;
+import com.example.mrrobot.ihome.models.Localization;
 import com.example.mrrobot.ihome.models.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
 
 import io.socket.client.Socket;
 
@@ -26,54 +33,84 @@ public class FollowLocationThread extends Thread implements LocationListener, Se
     private User user;
     private Location location;
     private static final int TWO_MINUTES = 1000 * 60 * 2;
+    private IHomeApiService apiService;
 
     public FollowLocationThread(Context context,Socket socket,User user) {
         super();
         this.ctx=context;
         this.socketIO=socket;
         this.user=user;
-        this.setName("FollowLocationThread");
+        this.setName("FollowLocation HandlerThread");
+        apiService = HomeApiService.getInstance();
     }
 
     @Override
     public void run() {
+
+        Log.println(Log.INFO, "ServiceLocation ", "RUN "+Thread.currentThread().getName());
         locationConfig();
         try {
-            this.wait();
-        } catch (InterruptedException e) {
+
+            this.apiService.saveMyLocalization(new Localization(8888888,3333333)).execute();
+
+        } catch (IOException  e) {
             e.printStackTrace();
         }
+
+
         //task();
 
     }
 
+    @Override
+    public void interrupt() {
+        Log.println(Log.INFO, "ServiceLocation", "thread interrupt");
+        super.interrupt();
 
+    }
 
+    @SuppressLint("MissingPermission")
     private void locationConfig() {
         try {
 
 
             //  permission to GPS
-            if (ActivityCompat.checkSelfPermission
+            /*if (ActivityCompat.checkSelfPermission
                     (this.ctx, android.Manifest.permission.ACCESS_FINE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED) {
 
                 throw new Exception("no permission");
-            }
+            }*/
+            HandlerThread handlerThread = new HandlerThread("MyHandlerThread");
+            handlerThread.start();
+            // Now get the Looper from the HandlerThread
+            // NOTE: This call will block until the HandlerThread gets control and initializes its Looper
+            Looper looper = handlerThread.getLooper();
 
             this.locationManager = (LocationManager) this.ctx.getSystemService(Context.LOCATION_SERVICE);
-
+            if(locationManager == null){
+                throw new Exception("not get LOCATION_SERVICE");
+            }
             boolean isGPSEnabled = this.locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
             if (isGPSEnabled) {
 
-                this.locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, Traking.MIN_TIME,Traking.MIN_DISTANCE, this);
+                this.locationManager.requestLocationUpdates(
+                        LocationManager.GPS_PROVIDER,
+                        Traking.MIN_TIME,
+                        Traking.MIN_DISTANCE,
+                        this,
+                        looper
+                        );
+
                 this.location = this.locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                Log.println(Log.INFO, "ServiceLocation", "my location"+location.getLatitude()+ "  "+location.getLongitude());
 
             } else {
                 throw new Exception("GPS not enable");
             }
         } catch (Exception e) {
+            Log.println(Log.INFO, "ServiceLocation", "exception: "+e.getMessage());
             e.printStackTrace();
         }
 
@@ -109,28 +146,31 @@ public class FollowLocationThread extends Thread implements LocationListener, Se
 
     @Override
     public void onLocationChanged(Location location) {
+
         this.location=location;
         Log.println(Log.INFO, "ServiceLocation", "onLocationChanged");
         try {
+            this.apiService.saveMyLocalization(new Localization(location)).execute();
             this.emitLocation(this.location);
-        } catch (JSONException e) {
+        } catch (JSONException | IOException e) {
+            Log.println(Log.INFO, "ServiceLocation", "Exception"+e.getMessage());
             e.printStackTrace();
         }
     }
 
     @Override
     public void onStatusChanged(String s, int i, Bundle bundle) {
-
+        Log.println(Log.INFO, "ServiceLocation", "onStatusChanged"+s);
     }
 
     @Override
     public void onProviderEnabled(String s) {
-
+        Log.println(Log.INFO, "ServiceLocation", "onProviderEnabled"+s);
     }
 
     @Override
     public void onProviderDisabled(String s) {
-
+        Log.println(Log.INFO, "ServiceLocation", "onProviderDisabled"+s);
     }
 
     //INTERFACE WITH SERVICE,
@@ -174,10 +214,10 @@ public class FollowLocationThread extends Thread implements LocationListener, Se
     }
 
     /**
-     * Determines whether one Location reading is better than the current Location fix
+     * Determines whether one Localization reading is better than the current Localization fix
      *
-     * @param location            The new Location that you want to evaluate
-     * @param currentBestLocation The current Location fix, to which you want to compare the new one
+     * @param location            The new Localization that you want to evaluate
+     * @param currentBestLocation The current Localization fix, to which you want to compare the new one
      */
     protected boolean isBetterLocation(Location location, Location currentBestLocation) {
         if (currentBestLocation == null) {

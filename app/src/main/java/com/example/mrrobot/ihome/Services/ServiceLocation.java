@@ -1,37 +1,27 @@
 package com.example.mrrobot.ihome.Services;
 
-import android.annotation.SuppressLint;
-import android.app.IntentService;
-import android.app.PendingIntent;
+
 import android.app.Service;
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.databinding.ObservableField;
+
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.AsyncTask;
-import android.os.Bundle;
+
 import android.os.IBinder;
-import android.os.Looper;
-import android.support.annotation.NonNull;
+
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
+
 import android.util.Log;
 
 import com.example.mrrobot.ihome.models.User;
-import com.google.gson.FieldAttributes;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import io.socket.client.Socket;
 
 
 /**
- * this class is for get my Location on change and emit(socketIO) location
+ * this class is for get my Localization on change and emit(socketIO) location
  */
 
 public class ServiceLocation extends Service {
@@ -55,7 +45,7 @@ public class ServiceLocation extends Service {
     //METHODS
     public ServiceLocation() {
         super();
-        this.ctx = this.getBaseContext();
+
     }
 
     public ServiceLocation(Context context) {
@@ -63,7 +53,6 @@ public class ServiceLocation extends Service {
         //this.ctx = context;
         //this.locationConfig();
     }
-
 
 
     public MutableLiveData<Location> getLocationMutableLiveData() {
@@ -76,10 +65,13 @@ public class ServiceLocation extends Service {
 
     @Override
     public void onCreate() {
+
+
         super.onCreate();
         Log.println(Log.INFO, "ServiceLocation", "service created");
-        this.followLocationThread =new FollowLocationThread(
-                this.ctx,SocketIO.getSocket(),User.getInstance());
+        this.ctx=getBaseContext();
+        this.followLocationThread = new FollowLocationThread(
+                this.ctx, SocketIO.getSocket(), User.getInstance());
 
         //this.followLocationThread.start();
 
@@ -87,12 +79,15 @@ public class ServiceLocation extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.println(Log.INFO, "ServiceLocation", "service running");
-        Log.println(Log.INFO, "ServiceLocation", "state 1 "+this.followLocationThread.getState());
-        if(this.followLocationThread.getState().equals(Thread.State.TERMINATED)){
+
+        Log.println(Log.INFO, "ServiceLocation", "service running in "+Thread.currentThread().getName());
+        Log.println(Log.INFO, "ServiceLocation", "state 1 " + this.followLocationThread.getState());
+        this.followLocationThread.start();
+        /*if (this.followLocationThread.getState().equals(Thread.State.TERMINATED)) {
             this.followLocationThread.start();
-        }
-        Log.println(Log.INFO, "ServiceLocation", "state 1 "+this.followLocationThread.getState());
+        }*/
+
+        Log.println(Log.INFO, "ServiceLocation", "state 2 " + this.followLocationThread.getState());
         /*try {
             this.followLocationThread.wait();
             Log.println(Log.INFO, "ServiceLocation", "state 2  "+this.followLocationThread.getState());
@@ -101,23 +96,18 @@ public class ServiceLocation extends Service {
         }*/
         return super.onStartCommand(intent, flags, startId);
 
-
-
-
     }
-
 
 
     @Override
     public void onDestroy() {
+
+        Log.println(Log.INFO, "ServiceLocation", "Thread follow.. is "+this.followLocationThread.getState());
         Log.println(Log.INFO, "ServiceLocation", "service destroy");
         //emit event "service suspended"
         //iServiceLocation.onDestroy();
     }
 
-    public void setiServiceLocation(IServiceLocation iServiceLocation) {
-        this.iServiceLocation = iServiceLocation;
-    }
 
     @Nullable
     @Override
@@ -126,33 +116,12 @@ public class ServiceLocation extends Service {
     }
 
 
-    //
-    // End methods from service
-
-
-    //
-
-
-
-
-
-
-
-
-
-    //
-    // Location
-    //
-
 
 
     /**
-     *
-     *
      * INTERFACE
-     *
      */
-    public interface IServiceLocation{
+    public interface IServiceLocation {
         void onDestroy();
     }
 }

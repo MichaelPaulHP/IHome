@@ -185,7 +185,7 @@ public class LocationViewModel extends ViewModel implements
     // locationEngine.requestLocationUpdates
     @Override
     public void onSuccess(LocationEngineResult result) {
-        // Location logic here
+        // Localization logic here
 
         Location lastLocation = result.getLastLocation();
 

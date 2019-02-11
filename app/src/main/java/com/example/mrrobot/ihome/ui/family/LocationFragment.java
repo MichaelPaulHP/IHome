@@ -1,18 +1,26 @@
 package com.example.mrrobot.ihome.ui.family;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.databinding.Observable;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.mrrobot.ihome.Config.Traking;
 import com.example.mrrobot.ihome.R;
 import com.example.mrrobot.ihome.Services.ServiceLocation;
 import com.example.mrrobot.ihome.databinding.FragmentLocationBinding;
@@ -61,9 +69,6 @@ public class LocationFragment extends Fragment  {
             public void onChanged(@Nullable Location location) {
                 try{
                     String str= "Longi: "+location.getLongitude()+"  lat: "+location.getLatitude();
-
-
-
                     binding.locationInfo.setText(str);
                 }catch (Exception exepction){
                     exepction.printStackTrace();
@@ -78,6 +83,8 @@ public class LocationFragment extends Fragment  {
             }
         });
         */
+        binding.locationCounter.setText("my position");
+        locationConfig();
 
 
 
@@ -85,6 +92,65 @@ public class LocationFragment extends Fragment  {
         this.binding.setLocationVM(this.locationViewModel);
 
         return binding.getRoot();
+    }
+
+    private void locationConfig() {
+        try {
+
+
+            //  permission to GPS
+            if (ActivityCompat.checkSelfPermission
+                    (this.getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+                throw new Exception("no permission");
+            }
+
+            LocationManager locationManager = (LocationManager) this.getContext().getSystemService(Context.LOCATION_SERVICE);
+            if(locationManager == null){
+                throw new Exception("not get LOCATION_SERVICE");
+            }
+            boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+            if (isGPSEnabled) {
+                locationManager.requestLocationUpdates(
+                        LocationManager.GPS_PROVIDER,
+                        Traking.MIN_TIME,
+                        Traking.MIN_DISTANCE,
+                        new LocationListener() {
+                            @Override
+                            public void onLocationChanged(Location location) {
+                                String str= "Longi: "+location.getLongitude()+"  lat: "+location.getLatitude();
+                                binding.locationCounter.setText(str);
+                            }
+
+                            @Override
+                            public void onStatusChanged(String s, int i, Bundle bundle) {
+
+                            }
+
+                            @Override
+                            public void onProviderEnabled(String s) {
+
+                            }
+
+                            @Override
+                            public void onProviderDisabled(String s) {
+
+                            }
+                        }
+                );
+
+
+
+            } else {
+                throw new Exception("GPS not enable");
+            }
+        } catch (Exception e) {
+            Log.println(Log.INFO, "ServiceLocation", "exception: "+e.getMessage());
+            e.printStackTrace();
+        }
+
     }
     /*
     @Override

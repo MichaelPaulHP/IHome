@@ -13,8 +13,6 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.example.mrrobot.ihome.Services.ServiceLocation;
 import com.example.mrrobot.ihome.components.MenuLeftComponent;
-import com.example.mrrobot.ihome.models.House;
-import com.example.mrrobot.ihome.Services.SocketIO;
 import com.example.mrrobot.ihome.ui.devices.DevicesFragment;
 import com.example.mrrobot.ihome.ui.family.LocationFragment;
 import com.example.mrrobot.ihome.ui.home.HomeFragment;
@@ -95,13 +93,20 @@ public class MainActivity extends AppCompatActivity
             String str=this.name+" "+this.age ;
             return str;
         }
-    }
-    public static void  main(String args[]){
+    }*/
 
-        Person p = new Person("person",34);
-        Person arte = new Person("arte",45);
-        p=arte;
-        System.out.println(p);
+    /*public static void  main(String args[]){
+
+        IHomeApiService apiService = HomeApiService.getInstance();
+        try {
+            apiService.saveMyLocation(new Localization(3434,34343))
+                    .execute().toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
     }*/
 
     @Override
