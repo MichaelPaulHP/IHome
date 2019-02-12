@@ -28,7 +28,7 @@ public class ApiHomeConstants {
     private static final String LOCATION = "location/";
 
     public  static final String URL_SAVE_LOCATION = LOCATION+"save/";
-
+    public  static final String URL_MESSAGE_LOCATION = LOCATION+"message/";
     public static final String ARTIST_SEARCH_URL = VERSION_PATH + SEARCH_PATH + "?"+ TYPE_QUERY + "=" + ARTIST;
 
 

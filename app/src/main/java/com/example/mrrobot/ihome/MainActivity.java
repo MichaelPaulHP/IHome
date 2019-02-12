@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.example.mrrobot.ihome.Services.ServiceLocation;
 import com.example.mrrobot.ihome.components.MenuLeftComponent;
+import com.example.mrrobot.ihome.models.House;
 import com.example.mrrobot.ihome.ui.devices.DevicesFragment;
 import com.example.mrrobot.ihome.ui.family.LocationFragment;
 import com.example.mrrobot.ihome.ui.home.HomeFragment;
@@ -117,7 +118,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onDestroy() {
-        //House.getInstance().disconnect();
+        House.getInstance().disconnect();
         super.onDestroy();
     }
     /*

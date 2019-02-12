@@ -2,44 +2,41 @@ package com.example.mrrobot.ihome.Services;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.pm.PackageManager;
+
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.HandlerThread;
 import android.os.Looper;
-import android.support.v4.app.ActivityCompat;
+
 import android.util.Log;
 
 import com.example.mrrobot.ihome.Config.Traking;
 import com.example.mrrobot.ihome.Services.ApiHome.HomeApiService;
 import com.example.mrrobot.ihome.Services.ApiHome.IHomeApiService;
 import com.example.mrrobot.ihome.models.Localization;
+import com.example.mrrobot.ihome.models.Message;
 import com.example.mrrobot.ihome.models.User;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 
-import io.socket.client.Socket;
 
-public class FollowLocationThread extends Thread implements LocationListener, ServiceLocation.IServiceLocation {
+public class FollowLocationThread extends Thread
+        implements LocationListener {
 
     private final Context ctx;
     private LocationManager locationManager;
-    private Socket socketIO;
     private User user;
     private Location location;
-    private static final int TWO_MINUTES = 1000 * 60 * 2;
-    private IHomeApiService apiService;
+    private static final int TWO_MINUTES = 1000 * 60 * 2;// test
+    private IHomeApiService apiService; // API
 
-    public FollowLocationThread(Context context,Socket socket,User user) {
-        super();
-        this.ctx=context;
-        this.socketIO=socket;
-        this.user=user;
+    public FollowLocationThread(Context context) {
+        super("");
+        this.ctx = context;
+        this.user = User.getInstance();
         this.setName("FollowLocation HandlerThread");
         apiService = HomeApiService.getInstance();
     }
@@ -47,17 +44,8 @@ public class FollowLocationThread extends Thread implements LocationListener, Se
     @Override
     public void run() {
 
-        Log.println(Log.INFO, "ServiceLocation ", "RUN "+Thread.currentThread().getName());
+        Log.println(Log.INFO, "ServiceLocation ", "RUN " + Thread.currentThread().getName());
         locationConfig();
-        try {
-
-            this.apiService.saveMyLocalization(new Localization(8888888,3333333)).execute();
-
-        } catch (IOException  e) {
-            e.printStackTrace();
-        }
-
-
         //task();
 
     }
@@ -81,19 +69,21 @@ public class FollowLocationThread extends Thread implements LocationListener, Se
 
                 throw new Exception("no permission");
             }*/
-            HandlerThread handlerThread = new HandlerThread("MyHandlerThread");
-            handlerThread.start();
+
             // Now get the Looper from the HandlerThread
             // NOTE: This call will block until the HandlerThread gets control and initializes its Looper
-            Looper looper = handlerThread.getLooper();
+
 
             this.locationManager = (LocationManager) this.ctx.getSystemService(Context.LOCATION_SERVICE);
-            if(locationManager == null){
+            if (locationManager == null) {
                 throw new Exception("not get LOCATION_SERVICE");
             }
             boolean isGPSEnabled = this.locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
             if (isGPSEnabled) {
+                HandlerThread handlerThread = new HandlerThread("MyHandlerThread");
+                handlerThread.start();
+                Looper looper = handlerThread.getLooper();
 
                 this.locationManager.requestLocationUpdates(
                         LocationManager.GPS_PROVIDER,
@@ -101,41 +91,40 @@ public class FollowLocationThread extends Thread implements LocationListener, Se
                         Traking.MIN_DISTANCE,
                         this,
                         looper
-                        );
+                );
 
                 this.location = this.locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                Log.println(Log.INFO, "ServiceLocation", "my location"+location.getLatitude()+ "  "+location.getLongitude());
+                Log.println(Log.INFO, "ServiceLocation", "my location" + location.getLatitude() + "  " + location.getLongitude());
 
             } else {
                 throw new Exception("GPS not enable");
             }
         } catch (Exception e) {
-            Log.println(Log.INFO, "ServiceLocation", "exception: "+e.getMessage());
+            Log.println(Log.INFO, "ServiceLocation", "exception: " + e.getMessage());
             e.printStackTrace();
         }
 
     }
+
     @SuppressLint("MissingPermission")
-    private void task(){
+    private void task() {
 
         try {
             //emit my location
-            emitLocation(location);
+
 
             while (true) {
 
                 Location newLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                 boolean isBetterLocation = isBetterLocation(newLocation, location);
-                if (isBetterLocation) {
-                    emitLocation(newLocation);
-                }
+
                 //location = newLocation;
-                Log.println(Log.INFO, "ServiceLocation", "isBetterLocation "+isBetterLocation);
-                Log.println(Log.INFO, "ServiceLocation", "isConnected "+socketIO.connected());
+                Log.println(Log.INFO, "ServiceLocation", "isBetterLocation " + isBetterLocation);
+
                 Thread.sleep(1000 * 60 * 1);
 
             }
-        } catch (InterruptedException | JSONException e){
+        } catch (InterruptedException e) {
             Log.println(Log.INFO, "ServiceLocation", "InterruptedException | JSONException");
             e.printStackTrace();
             Thread.currentThread().interrupt();
@@ -147,71 +136,73 @@ public class FollowLocationThread extends Thread implements LocationListener, Se
     @Override
     public void onLocationChanged(Location location) {
 
-        this.location=location;
+        this.location = location;
         Log.println(Log.INFO, "ServiceLocation", "onLocationChanged");
         try {
             this.apiService.saveMyLocalization(new Localization(location)).execute();
-            this.emitLocation(this.location);
-        } catch (JSONException | IOException e) {
-            Log.println(Log.INFO, "ServiceLocation", "Exception"+e.getMessage());
+
+        } catch (IOException e) {
+            Log.println(Log.INFO, "ServiceLocation", "Exception" + e.getMessage());
             e.printStackTrace();
         }
     }
 
     @Override
     public void onStatusChanged(String s, int i, Bundle bundle) {
-        Log.println(Log.INFO, "ServiceLocation", "onStatusChanged"+s);
+        Log.println(Log.INFO, "ServiceLocation", "onStatusChanged" + s);
+        sendMessage("onStatusChanged");
     }
 
     @Override
     public void onProviderEnabled(String s) {
-        Log.println(Log.INFO, "ServiceLocation", "onProviderEnabled"+s);
+        Log.println(Log.INFO, "ServiceLocation", "onProviderEnabled" + s);
+        sendMessage("onProviderEnabled");
     }
 
     @Override
     public void onProviderDisabled(String s) {
-        Log.println(Log.INFO, "ServiceLocation", "onProviderDisabled"+s);
+        Log.println(Log.INFO, "ServiceLocation", "onProviderDisabled" + s);
+
+        sendMessage("onProviderDisabled");
     }
-
-    //INTERFACE WITH SERVICE,
-
-    @Override
-    public void onDestroy() {
+    public void sendMessage(String message){
         try {
-            emitEventDisconnect();
-        } catch (JSONException e) {
+            this.apiService.sendMessage(new Message(message)).execute();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
 
+    //INTERFACE WITH SERVICE,
+
 
     // EVENTS
 
-    private void emitLocation(Location location) throws JSONException {
-        //user
-        JSONObject toSend = new JSONObject();
-        toSend.put("user", this.user.getId());
-        //location
-        JSONObject locationSend = new JSONObject();
-        locationSend.put("latitude", location.getLatitude());
-        locationSend.put("longitude", location.getLongitude());
-
-        toSend.put("location", locationSend);
-
-        // {user:1324646134,
-        // location:{
-        //           latitude:234234242, longitude:564646
-        //          }
-        // }
-
-        this.socketIO.emit("myLocation", toSend);
-    }
-    private void emitEventDisconnect() throws JSONException {
-        JSONObject toSend = new JSONObject();
-        toSend.put("user", this.user.getId());
-        this.socketIO.emit("disconnectService", toSend);
-    }
+//    private void emitLocation(Location location) throws JSONException {
+//        //user
+//        JSONObject toSend = new JSONObject();
+//        toSend.put("user", this.user.getId());
+//        //location
+//        JSONObject locationSend = new JSONObject();
+//        locationSend.put("latitude", location.getLatitude());
+//        locationSend.put("longitude", location.getLongitude());
+//
+//        toSend.put("location", locationSend);
+//
+//        // {user:1324646134,
+//        // location:{
+//        //           latitude:234234242, longitude:564646
+//        //          }
+//        // }
+//
+//        this.socketIO.emit("myLocation", toSend);
+//    }
+//    private void emitEventDisconnect() throws JSONException {
+//        JSONObject toSend = new JSONObject();
+//        toSend.put("user", this.user.getId());
+//        this.socketIO.emit("disconnectService", toSend);
+//    }
 
     /**
      * Determines whether one Localization reading is better than the current Localization fix
@@ -227,7 +218,7 @@ public class FollowLocationThread extends Thread implements LocationListener, Se
 
         // Check whether the new location fix is newer or older
         long timeDelta = location.getTime() - currentBestLocation.getTime();
-        Log.println(Log.INFO, "ServiceLocation", "timeDelta "+timeDelta);
+        Log.println(Log.INFO, "ServiceLocation", "timeDelta " + timeDelta);
         boolean isSignificantlyNewer = timeDelta > TWO_MINUTES;
         boolean isSignificantlyOlder = timeDelta < -TWO_MINUTES;
         boolean isNewer = timeDelta > 0;

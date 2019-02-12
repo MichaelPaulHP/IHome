@@ -1,6 +1,7 @@
 package com.example.mrrobot.ihome.Services.ApiHome;
 
 import com.example.mrrobot.ihome.models.Localization;
+import com.example.mrrobot.ihome.models.Message;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -19,6 +20,8 @@ public interface IHomeApiService {
     @POST(ApiHomeConstants.URL_SAVE_LOCATION)
     Call<String> saveMyLocalization (@Body Localization localization);
 
+    @POST(ApiHomeConstants.URL_MESSAGE_LOCATION)
+    Call<String> sendMessage(@Body Message message);
     //Albums
     //@Headers("Authorization: Bearer {Token}")
     //GET(SpotifyApiConstants.URL_ALBUMS)

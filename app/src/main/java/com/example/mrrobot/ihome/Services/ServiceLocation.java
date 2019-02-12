@@ -21,26 +21,15 @@ import io.socket.client.Socket;
 
 
 /**
- * this class is for get my Localization on change and emit(socketIO) location
+ * this class is for get my Localization and send to API
  */
 
 public class ServiceLocation extends Service {
 
 
-    private static final int MIN_DISTANCE = 5; //example:5 Km
-    private static final int MIN_TIME = 1000 * 60 * 1; // example 1 minutes
-    private static final int TWO_MINUTES = 1000 * 60 * 2;
-
-
-    MutableLiveData<Location> locationMutableLiveData = new MutableLiveData<>();
     private Context ctx;
-    //private LocationManager locationManager;
-    private Socket socketIO;
-    private User user;
-    private Location location;
-    private IServiceLocation iServiceLocation;
-
     FollowLocationThread followLocationThread;
+
 
     //METHODS
     public ServiceLocation() {
@@ -48,16 +37,6 @@ public class ServiceLocation extends Service {
 
     }
 
-    public ServiceLocation(Context context) {
-        super();
-        //this.ctx = context;
-        //this.locationConfig();
-    }
-
-
-    public MutableLiveData<Location> getLocationMutableLiveData() {
-        return locationMutableLiveData;
-    }
 
     //
     // methods Override from Service
@@ -69,9 +48,8 @@ public class ServiceLocation extends Service {
 
         super.onCreate();
         Log.println(Log.INFO, "ServiceLocation", "service created");
-        this.ctx=getBaseContext();
-        this.followLocationThread = new FollowLocationThread(
-                this.ctx, SocketIO.getSocket(), User.getInstance());
+        this.ctx = getBaseContext();
+        this.followLocationThread = new FollowLocationThread(this.ctx);
 
         //this.followLocationThread.start();
 
@@ -80,8 +58,9 @@ public class ServiceLocation extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        Log.println(Log.INFO, "ServiceLocation", "service running in "+Thread.currentThread().getName());
+        Log.println(Log.INFO, "ServiceLocation", "service running in " + Thread.currentThread().getName());
         Log.println(Log.INFO, "ServiceLocation", "state 1 " + this.followLocationThread.getState());
+
         this.followLocationThread.start();
         /*if (this.followLocationThread.getState().equals(Thread.State.TERMINATED)) {
             this.followLocationThread.start();
@@ -101,13 +80,11 @@ public class ServiceLocation extends Service {
 
     @Override
     public void onDestroy() {
-
-        Log.println(Log.INFO, "ServiceLocation", "Thread follow.. is "+this.followLocationThread.getState());
+        Log.println(Log.INFO, "ServiceLocation", "Thread follow.. is " + this.followLocationThread.getState());
         Log.println(Log.INFO, "ServiceLocation", "service destroy");
-        //emit event "service suspended"
-        //iServiceLocation.onDestroy();
+        this.followLocationThread.sendMessage("service destroy");
+        super.onDestroy();
     }
-
 
     @Nullable
     @Override
@@ -116,12 +93,4 @@ public class ServiceLocation extends Service {
     }
 
 
-
-
-    /**
-     * INTERFACE
-     */
-    public interface IServiceLocation {
-        void onDestroy();
-    }
 }
