@@ -8,6 +8,7 @@ import android.databinding.Observable;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.mrrobot.ihome.Firebase.Auth;
 import com.example.mrrobot.ihome.Services.Utils;
 import com.example.mrrobot.ihome.models.Device;
 import com.example.mrrobot.ihome.models.House;
@@ -17,7 +18,7 @@ import java.util.List;
 
 public class HomeViewModel extends ViewModel implements Observable {
 
-    private User user;
+    private Auth user;
     public House house;
     public String isConnected;
 
@@ -26,7 +27,7 @@ public class HomeViewModel extends ViewModel implements Observable {
 
     public HomeViewModel() {
 
-        this.user = User.getInstance();
+        this.user = Auth.getInstance();
         this.house = House.getInstance();
         isConnected = this.house.isConnected() ? "conectado" : "si conexio";
         this.contadorer = this.house.getCounter();
@@ -39,7 +40,7 @@ public class HomeViewModel extends ViewModel implements Observable {
 
     @Bindable
     public String getUserName() {
-        return this.user.getName();
+        return this.user.getUserName();
     }
 
 

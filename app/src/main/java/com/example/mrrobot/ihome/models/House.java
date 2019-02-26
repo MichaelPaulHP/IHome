@@ -52,7 +52,7 @@ public class House extends BaseObservable {
     private void updateDevices() {
 
         /*for (Device device : Devices.getArray) {
-            this.devices.put(device.getName(), device);
+            this.devices.put(device.getUserName(), device);
 
         }*/
         this.devicesList.addAll(Arrays.asList(Devices.getArray));

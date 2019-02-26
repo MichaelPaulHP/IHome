@@ -156,13 +156,6 @@
                     android:layout_height="110dp"
                     >
 
-                    <com.example.mrrobot.ihome.components.SwitchIconComponent
-                        android:id="@+id/swIconLed"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                    </com.example.mrrobot.ihome.components.SwitchIconComponent>
-
                     <include
                         layout="@layout/device_sw_icon"
                         bind:device='@{homeVM.getDeviceByName("LED")}' />

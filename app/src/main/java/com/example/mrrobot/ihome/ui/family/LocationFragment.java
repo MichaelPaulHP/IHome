@@ -1,13 +1,11 @@
 package com.example.mrrobot.ihome.ui.family;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
-import android.databinding.Observable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -22,7 +20,6 @@ import android.view.ViewGroup;
 
 import com.example.mrrobot.ihome.Config.Traking;
 import com.example.mrrobot.ihome.R;
-import com.example.mrrobot.ihome.Services.ServiceLocation;
 import com.example.mrrobot.ihome.databinding.FragmentLocationBinding;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.maps.MapView;

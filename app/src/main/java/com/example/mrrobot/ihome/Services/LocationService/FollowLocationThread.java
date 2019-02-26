@@ -1,4 +1,4 @@
-package com.example.mrrobot.ihome.Services;
+package com.example.mrrobot.ihome.Services.LocationService;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -28,7 +28,6 @@ public class FollowLocationThread extends Thread
 
     private final Context ctx;
     private LocationManager locationManager;
-    private User user;
     private Location location;
     private static final int TWO_MINUTES = 1000 * 60 * 2;// test
     private IHomeApiService apiService; // API
@@ -36,10 +35,13 @@ public class FollowLocationThread extends Thread
     public FollowLocationThread(Context context) {
         super("");
         this.ctx = context;
-        this.user = User.getInstance();
         this.setName("FollowLocation HandlerThread");
         apiService = HomeApiService.getInstance();
+
+
+
     }
+
 
     @Override
     public void run() {
@@ -210,7 +212,7 @@ public class FollowLocationThread extends Thread
      * @param location            The new Localization that you want to evaluate
      * @param currentBestLocation The current Localization fix, to which you want to compare the new one
      */
-    protected boolean isBetterLocation(Location location, Location currentBestLocation) {
+    private boolean isBetterLocation(Location location, Location currentBestLocation) {
         if (currentBestLocation == null) {
             // A new location is always better than no location
             return true;

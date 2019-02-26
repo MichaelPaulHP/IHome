@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.support.v4.app.FragmentTransaction;
 
-import com.example.mrrobot.ihome.Services.ServiceLocation;
+import com.example.mrrobot.ihome.Services.LocationService.ServiceLocation;
 import com.example.mrrobot.ihome.components.MenuLeftComponent;
 import com.example.mrrobot.ihome.models.House;
 import com.example.mrrobot.ihome.ui.devices.DevicesFragment;
@@ -58,8 +58,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //start serviceLocation
-        startService( new Intent(this.getApplicationContext(),ServiceLocation.class));
+
 
 
         // theme config
@@ -119,6 +118,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onDestroy() {
         House.getInstance().disconnect();
+        //start serviceLocation
+        startService( new Intent(this.getApplicationContext(),ServiceLocation.class));
         super.onDestroy();
     }
     /*

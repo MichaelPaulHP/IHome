@@ -1,23 +1,15 @@
-package com.example.mrrobot.ihome.Services;
+package com.example.mrrobot.ihome.Services.LocationService;
 
 
 import android.app.Service;
-import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.content.Intent;
-
-import android.location.Location;
 
 import android.os.IBinder;
 
 import android.support.annotation.Nullable;
 
 import android.util.Log;
-
-import com.example.mrrobot.ihome.models.User;
-
-
-import io.socket.client.Socket;
 
 
 /**
