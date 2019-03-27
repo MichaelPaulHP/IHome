@@ -85,7 +85,8 @@
                         android:text="@{homeVM.house.connected? @string/connected:@string/not_connection}"
 
                         android:textSize="14sp" />
-                    <!--txtview.setCompoundDrawablesWithIntrinsicBounds(R.drawable.image, 0, 0, 0);-->
+                    <!--
+                    txtview.setCompoundDrawablesWithIntrinsicBounds(R.drawable.image, 0, 0, 0);-->
 
                 </LinearLayout>
 
