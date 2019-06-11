@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import com.example.mrrobot.ihome.DialogsFragment.ThemeDialogFragment;
+import com.example.mrrobot.ihome.Firebase.Auth;
 import com.example.mrrobot.ihome.models.User;
 import com.example.mrrobot.ihome.R;
 import com.example.mrrobot.ihome.Services.GlideApp;
@@ -24,7 +25,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class SecurityFragment extends Fragment implements View.OnClickListener{
 
-    private User user;
+    private Auth user;
 
     CircleImageView userImage;
     private SwitchIconView swNotification;
@@ -39,7 +40,7 @@ public class SecurityFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        this.user=User.getInstance();
+        this.user=Auth.getInstance();
 
         View view = inflater.inflate(R.layout.fragment_security, container, false);
         // user image

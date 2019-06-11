@@ -14,6 +14,7 @@ import com.example.mrrobot.ihome.models.Device;
 import com.example.mrrobot.ihome.models.House;
 import com.example.mrrobot.ihome.models.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeViewModel extends ViewModel implements Observable {
@@ -58,7 +59,15 @@ public class HomeViewModel extends ViewModel implements Observable {
     public List<Device> getDevices() {
         return this.house.devicesList;
     }
-
+    public List<Device> getINPUTSdevices(){
+        List<Device> devices = new ArrayList<>();
+        for(Device x :this.house.devicesList){
+            if(!x.getMode().equals("OUTPUT")){
+                devices.add(x);
+            }
+        }
+        return devices;
+    }
     public void testMessage() {
         int num = (int) (Math.random() * 50) + 1;
         ;

@@ -93,13 +93,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private void setEvents(){
 
         binding.btnSettingsHome.setOnClickListener(this);
-        binding.btnTest.setOnClickListener(this);
+        //binding.btnTest.setOnClickListener(this);
     }
 
     private void setupListDevice(RecyclerView listDevice) {
         DeviceAdapter deviceAdapter= new DeviceAdapter();
         listDevice.setAdapter(deviceAdapter);
-        deviceAdapter.setDevices(this.mViewModel.getDevices());
+        deviceAdapter.setDevices(this.mViewModel.getINPUTSdevices());
         listDevice.setLayoutManager( new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
     }
@@ -110,9 +110,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             case R.id.btnSettingsHome:
                 showDialogTheme();
                 break;
-            case R.id.btnTest:
-                this.mViewModel.testMessage();
-                break;
+//            case R.id.btnTest:
+//                this.mViewModel.testMessage();
+//                break;
         }
 
     }

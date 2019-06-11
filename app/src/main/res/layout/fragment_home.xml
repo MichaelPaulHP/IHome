@@ -77,15 +77,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="17dp"
                         android:src="@drawable/ic_fiber_manual_record_black_24dp"
-                        android:tint="@{homeVM.house.connected? @color/colorGreen:@color/colorRed}" />
+                        android:tint="@color/colorGreen" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="17dp"
-                        android:text="@{homeVM.house.connected? @string/connected:@string/not_connection}"
+                        android:text="Conectado"
 
                         android:textSize="14sp" />
-                    <!--
+                    <!--@{homeVM.house.connected? @color/colorGreen:@color/colorRed}
+                    @{homeVM.house.connected? @string/connected:@string/not_connection}
                     txtview.setCompoundDrawablesWithIntrinsicBounds(R.drawable.image, 0, 0, 0);-->
 
                 </LinearLayout>
@@ -120,10 +121,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight=".5"
-                android:gravity="bottom"
+                android:gravity="center"
                 android:orientation="vertical"
-                android:paddingStart="25dp"
-                android:paddingEnd="25dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
                 android:paddingBottom="20dp"
 
 
@@ -131,22 +132,25 @@
                 <!-- ASSISTANCE -->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp">
+                    android:layout_height="90dp"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/ic_micgoogle"
+                         />
 
 
-                    <Button
-                        android:id="@+id/btnTest"
-                        android:layout_width="200dp"
-                        android:layout_height="71dp"
-                        android:text="message" />
                 </LinearLayout>
 
-                <!-- SENSOR -->
+                <!-- SENSOR android:src="@drawable/ic_micgoogle" -->
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/listSensor"
                     android:layout_width="match_parent"
                     android:layout_height="115dp"
                     android:orientation="horizontal"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
                     android:scrollbars="horizontal">
                 </android.support.v7.widget.RecyclerView>
 
@@ -160,7 +164,15 @@
                     <include
                         layout="@layout/device_sw_icon"
                         bind:device='@{homeVM.getDeviceByName("LED")}' />
-
+                    <include
+                        layout="@layout/device_sw_icon"
+                        bind:device='@{homeVM.getDeviceByName("LED 2")}' />
+                    <include
+                        layout="@layout/device_sw_icon"
+                        bind:device='@{homeVM.getDeviceByName("GARAGE")}' />
+                    <include
+                        layout="@layout/device_sw_icon"
+                        bind:device='@{homeVM.getDeviceByName("VENTILADOR")}' />
 
                 </LinearLayout>
 

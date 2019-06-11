@@ -33,7 +33,7 @@ public class MenuLeftComponent  {
         //Use the MenuItem given by this library and not the default one.
         //First parameter is the title of the menu item and then the second parameter is the image which will be the background of the menu item.
 
-        menuItems.add(new MenuItem("    Home",R.drawable.news_bg));
+        menuItems.add(new MenuItem("    Home",R.drawable.gradient));
         //menuItems.add(new MenuItem("        ",R.drawable.feed_bg));
         menuItems.add(new MenuItem("    Devices",R.drawable.feed_bg));
         menuItems.add(new MenuItem("    Security",R.drawable.message_bg));
