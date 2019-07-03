@@ -5,43 +5,51 @@ import android.content.Context;
 import android.databinding.Bindable;
 import android.databinding.Observable;
 
+import android.databinding.ObservableBoolean;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.mrrobot.ihome.Firebase.Auth;
 import com.example.mrrobot.ihome.Services.Utils;
+import com.example.mrrobot.ihome.models.Chat;
 import com.example.mrrobot.ihome.models.Device;
 import com.example.mrrobot.ihome.models.House;
+import com.example.mrrobot.ihome.models.Message;
 import com.example.mrrobot.ihome.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeViewModel extends ViewModel implements Observable {
+public class HomeViewModel extends ViewModel implements Observable, User.IUserListeners,Chat.IChatListener {
 
-    private Auth user;
+    private Auth auth;
+    private User user;
     public House house;
     public String isConnected;
+   public ObservableBoolean hasNewMessage= new ObservableBoolean(false) ;
+    //public Boolean hasNewMessage=false;
 
-    public int contadorer;
-    private Context context;
 
     public HomeViewModel() {
 
-        this.user = Auth.getInstance();
+        this.auth = Auth.getInstance();
+        this.user = User.getCurrentUser();
+        this.user.userListeners=this;
         this.house = House.getInstance();
-        isConnected = this.house.isConnected() ? "conectado" : "si conexio";
-        this.contadorer = this.house.getCounter();
+        //this.user.requestMyChats();
+        Log.i("HomeVM","HomeViewModel constructor");
+        isConnected = this.house.isConnected() ? "conectado" : "sin conexion";
+
 
     }
 
-    public void setContext(Context context) {
-        this.context = context;
-    }
+
+
 
     @Bindable
     public String getUserName() {
-        return this.user.getUserName();
+        return this.auth.getUserName();
     }
 
 
@@ -68,18 +76,7 @@ public class HomeViewModel extends ViewModel implements Observable {
         }
         return devices;
     }
-    public void testMessage() {
-        int num = (int) (Math.random() * 50) + 1;
-        ;
-        Device device = this.house.findDeviceByName("LED");
-        device.setMessage("me: " + num);
-        String qwe= device.getValue().equals("true")? "false":"true";
-        device.setValue(qwe);
-        Device deviceTemperature=this.house.findDeviceByName("TEMPERATURE");
-        deviceTemperature.setValue(""+num);
 
-
-    }
 
     // funciona homeVM.house.count
 
@@ -91,6 +88,37 @@ public class HomeViewModel extends ViewModel implements Observable {
 
     @Override
     public void removeOnPropertyChangedCallback(OnPropertyChangedCallback onPropertyChangedCallback) {
+
+    }
+
+    /**
+     * when this user join to chat
+     */
+    @Override
+    public void onJoinToChat() {
+
+    }
+
+    @Override
+    public void onAddChat(Chat chat) {
+        chat.chatEventManager.subscribe(this);
+    }
+
+    /**
+     * new message x in chat chat
+     *
+     * @param chat chat
+     * @param x    message
+     */
+    @Override
+    public void onNewMessage(Chat chat, Message x) {
+        //this.hasNewMessage=true;
+        this.hasNewMessage.set(true);
+        Log.i("HomeVM","onNewMessage"+x.getText());
+    }
+
+    @Override
+    public void onNewParticipant() {
 
     }
 }

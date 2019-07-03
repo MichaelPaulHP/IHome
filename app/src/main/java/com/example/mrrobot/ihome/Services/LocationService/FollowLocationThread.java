@@ -169,7 +169,7 @@ public class FollowLocationThread extends Thread
     }
     public void sendMessage(String message){
         try {
-            this.apiService.sendMessage(new Message(message)).execute();
+            this.apiService.sendMessage(new com.example.mrrobot.ihome.models.Log(message)).execute();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -4,22 +4,23 @@ import com.example.mrrobot.ihome.models.Device;
 import com.example.mrrobot.ihome.R;
 import com.example.mrrobot.ihome.models.stateDevice;
 
-public class Devices {
+import java.util.HashMap;
+import java.util.Map;
 
-    public static Device[] getArray={
+public class DevicePool {
 
-
+    public static Device[] devices={
             new Device("LED","OUTPUT", R.drawable.ic_light),
-            new Device("LED 2","OUTPUT", R.drawable.ic_light),
+            new Device("LED SALA","OUTPUT", R.drawable.ic_light),
             new Device("GARAGE","OUTPUT", R.drawable.ic_menu_black_24dp),
             new Device("VENTILADOR","OUTPUT", R.drawable.ic_av_timer_black_24dp),
             new Device("FIRE","INPUT",R.drawable.ic_fire,"Normal, sin Humo",stateDevice.CONNECTED),
             new Device("FIRE","INPUT",R.drawable.ic_tap,"Abierto",stateDevice.WARNING),
-            new Device("FIRE","INPUT",R.drawable.ic_footsteps),
-            getHUM(),
-            getTEMP(),
-            getENERGY()
+            new Device("FIRE","INPUT",R.drawable.ic_tap,"Abierto",stateDevice.WARNING),
+            new Device("Movimiento","INPUT",R.drawable.ic_footsteps),
+            getHUM(),getTEMP(),getENERGY()
     };
+
     private static Device getTEMP(){
         Device temp= new Device("TEMPERATURE","INPUT",R.drawable.ic_thermometer);
         temp.setValue("21");

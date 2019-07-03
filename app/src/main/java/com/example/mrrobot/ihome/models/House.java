@@ -4,7 +4,7 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
 import com.example.mrrobot.ihome.BR;
-import com.example.mrrobot.ihome.Config.Devices;
+import com.example.mrrobot.ihome.Config.DevicePool;
 import com.example.mrrobot.ihome.Services.SocketIO;
 
 import org.json.JSONException;
@@ -18,17 +18,18 @@ import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
 public class House extends BaseObservable {
+
     private static House instance;
     //private Device[] devices;
     private Socket socketIO;
     private boolean isConnected;
     //public  ObservableArrayMap<String, Device> devices = new ObservableArrayMap<>();
     public List<Device> devicesList = new ArrayList<>();
-    private int counter;
+
 
     private House() {
         this.isConnected = false;
-        setCounter(0);
+
         // updateDevices
         updateDevices();
 
@@ -51,11 +52,11 @@ public class House extends BaseObservable {
 
     private void updateDevices() {
 
-        /*for (Device device : Devices.getArray) {
+        /*for (Device device : DevicePool.getArray) {
             this.devices.put(device.getUserName(), device);
 
         }*/
-        this.devicesList.addAll(Arrays.asList(Devices.getArray));
+        this.devicesList.addAll(Arrays.asList(DevicePool.devices));
     }
     public Device findDeviceByName(String x){
 
@@ -111,13 +112,5 @@ public class House extends BaseObservable {
         notifyPropertyChanged(BR.connected);
     }
 
-    @Bindable
-    public int getCounter() {
-        return counter;
-    }
 
-    public void setCounter(int counter) {
-        this.counter = counter;
-        notifyPropertyChanged(BR.counter);
-    }
 }

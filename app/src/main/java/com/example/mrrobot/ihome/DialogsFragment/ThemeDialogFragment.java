@@ -24,8 +24,7 @@ import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.Toast;
 import com.example.mrrobot.ihome.R;
-import com.example.mrrobot.ihome.Theme.StyleMapConstants;
-import com.example.mrrobot.ihome.Theme.ThemeConstants;
+
 import com.example.mrrobot.ihome.Theme.ThemeManager;
 import com.github.zagum.switchicon.SwitchIconView;
 
@@ -39,11 +38,11 @@ public class ThemeDialogFragment extends DialogFragment implements
 
     private Button  saveButton ;
     private RadioGroup themesRadioGroup;
-    private int themeSelected;
-    private String themeMapSelected;
+
     private SwitchIconView botBarSwitchIcon;
     private SwitchIconView styleMapSwitchIcon;
     private ThemeManager themeManager;
+    private ThemeManager.Mode mode = ThemeManager.Mode.DEFAULT;
     public ThemeDialogFragment() {
         // Required empty public constructor
     }
@@ -86,9 +85,7 @@ public class ThemeDialogFragment extends DialogFragment implements
        // getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         //return super.onCreateView(inflater, container, savedInstanceState);
         this.themeManager=ThemeManager.getInstance(getContext());
-        // set themes in field
-        this.themeSelected=this.themeManager.getCurrentTheme();
-        this.themeMapSelected= this.themeManager.getCurrentThemeMap();
+
         return  v;
     }
 
@@ -104,7 +101,6 @@ public class ThemeDialogFragment extends DialogFragment implements
         // for  mapStyle
         this.styleMapSwitchIcon = (SwitchIconView)view.findViewById(R.id.styleMapSwitchIcon);
 
-        this.styleMapSwitchIcon.setIconEnabled(themeManager.getCurrentThemeMap().equals(StyleMapConstants.DARK));
 
         view.findViewById(R.id.styleMapContainer).setOnClickListener(this);
 
@@ -148,8 +144,8 @@ public class ThemeDialogFragment extends DialogFragment implements
         switch (view.getId()){
             case R.id.styleMapContainer:
                 this.styleMapSwitchIcon.switchState();
-                themeMapSelected= themeMapSelected.equals(StyleMapConstants.DARK)?
-                        StyleMapConstants.LIGHT:StyleMapConstants.DARK;
+                /*themeMapSelected= themeMapSelected.equals(StyleMapConstants.DARK)?
+                        StyleMapConstants.LIGHT:StyleMapConstants.DARK;*/
                 break;
             case R.id.saveButton:
                 saveConfig();
@@ -159,9 +155,10 @@ public class ThemeDialogFragment extends DialogFragment implements
     }
 
     private void saveConfig() {
-        boolean isReset= this.themeManager.isSave(themeSelected,this.themeMapSelected);
+        boolean isReset=true; //this.themeManager.isSave(themeSelected,this.themeMapSelected);
         if(isReset){
             // reset activity
+            this.themeManager.setTheme(this.mode);
             Intent intent =getActivity().getIntent();
             getActivity().finish();
             startActivity(intent);
@@ -172,19 +169,19 @@ public class ThemeDialogFragment extends DialogFragment implements
     public void onCheckedChanged(RadioGroup radioGroup, int i) {
         switch (i){
             case R.id.DEFAULT:
-                themeSelected= ThemeConstants.DEFAULT;
+                mode = ThemeManager.Mode.DEFAULT;
                 return;
             case R.id.LIGHT:
-                themeSelected=ThemeConstants.LIGHT;
+                mode = ThemeManager.Mode.LIGHT;
                 return ;
             case R.id.DARK:
-                themeSelected=ThemeConstants.DARK;
+                mode = ThemeManager.Mode.DARK;
                 return ;
             case R.id.BLACK:
-                themeSelected=ThemeConstants.BLACK;
+                mode = ThemeManager.Mode.BLACK;
                 return ;
             case R.id.WHITE:
-                themeSelected=ThemeConstants.WHITE;
+                mode = ThemeManager.Mode.WHITE;
                 return ;
         }
 

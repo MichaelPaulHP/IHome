@@ -6,10 +6,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mrrobot.ihome.Config.ApiHome;
+import com.example.mrrobot.ihome.Firebase.DB.ChatData;
+import com.example.mrrobot.ihome.Firebase.DB.UserData;
+import com.example.mrrobot.ihome.models.Chat;
+import com.example.mrrobot.ihome.models.User;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -23,10 +33,14 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.tapadoo.alerter.Alerter;
+import com.victor.loading.rotate.RotateLoading;
 
 public class LoginActivity extends AppCompatActivity
-implements View.OnClickListener{
+        implements View.OnClickListener {
 
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
@@ -36,29 +50,45 @@ implements View.OnClickListener{
     // [END declare_auth]
 
     private GoogleSignInClient mGoogleSignInClient;
-    private TextView mStatusTextView;
-    private TextView mDetailTextView;
+
     private EditText editTextEmailAddress;
     private EditText editTextPassword;
-    private TextView statusTextView;
-
+    private Button btnSignIn;
+    private Switch sw;
+    private RotateLoading rotateLoading;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
         // Views
-       // mStatusTextView = findViewById(R.id.status);
+        // mStatusTextView = findViewById(R.id.status);
         //mDetailTextView = findViewById(R.id.detail);
-        this.editTextEmailAddress = (EditText)findViewById(R.id.editTextEmailAddress);
+        this.editTextEmailAddress = (EditText) findViewById(R.id.editTextEmailAddress);
 
-        this.editTextPassword = (EditText)findViewById(R.id.editText_Password);
+        this.editTextPassword = (EditText) findViewById(R.id.editText_Password);
         //this.statusTextView = (TextView)findViewById(R.id.statusTextView);
+        rotateLoading = (RotateLoading) findViewById(R.id.rotateloading);
         // Button listeners
-        findViewById(R.id.sign_in).setOnClickListener(this);
+        btnSignIn=findViewById(R.id.sign_in);
+        btnSignIn.setOnClickListener(this);
+
         findViewById(R.id.sign_in_google_button).setOnClickListener(this);
-        //findViewById(R.id.register_button).setOnClickListener(this);
-        //findViewById(R.id.disconnect_button).setOnClickListener(this);
+
+        sw = findViewById(R.id.switchCreateAccount);
+        sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    btnSignIn.setText("Crear Cuenta");
+
+                }
+                else {
+                    btnSignIn.setText("iniciar Sesion");
+                }
+            }
+        });
+
 
         // [START config_signin]
         // Configure Google Sign In
@@ -121,8 +151,9 @@ implements View.OnClickListener{
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
+                            //ChatData.getChatById(ApiHome.ID_CHAT,getMyChatAndJoint);// add user to CHAT
                         } else {
-                            showAlert("Authentificacion Fallido","Algo salio Mal");
+                            showAlert("Authentificacion Fallido", "Algo salio Mal");
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             //Snackbar.make(findViewById(R.id.main_layout), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
@@ -142,7 +173,8 @@ implements View.OnClickListener{
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
-    private void showAlert(String title,String text){
+
+    private void showAlert(String title, String text) {
         Alerter.create(this)
                 .setTitle(title)
                 .setText(text)
@@ -151,32 +183,24 @@ implements View.OnClickListener{
                 .show();
 
     }
-    private boolean validateForm(){
 
-        String email=this.editTextEmailAddress.getText().toString();
+    private boolean validateForm() {
+
+        String email = this.editTextEmailAddress.getText().toString();
         String pass = this.editTextPassword.getText().toString();
 
-        if( email.isEmpty() && pass.isEmpty()){
+        if (email.isEmpty() && pass.isEmpty()) {
 
             return false;
 
-        }
-        else{
+        } else {
             return true;
         }
         //return !(email==""  && pass=="");
     }
-    private void signInEmailPass() {
 
-        if (!validateForm()) {
-            showAlert("Error","Ingrese Sus  Datos");
-            return;
-        }
-        String email=this.editTextEmailAddress.getText().toString();
-        String password=this.editTextPassword.getText().toString();
-        //showProgressDialog();
+    private void signInEmailPass(String email,String password) {
 
-        // [START sign_in_with_email]
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -187,11 +211,12 @@ implements View.OnClickListener{
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                         } else {
+                            LoginActivity.this.rotateLoading.stop();
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             /*.makeText(AuthActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();*/
-                            showAlert("Datos Incorrectos","Email o Password Incorrecto");
+                            showAlert("Datos Incorrectos", "Email o Password Incorrecto");
                             updateUI(null);
                         }
 
@@ -205,21 +230,52 @@ implements View.OnClickListener{
                 });
         // [END sign_in_with_email]
     }
-    // [END signin]
+    private void createWithEmailAndPass(String email,String password){
 
-    /*private void signOut() {
-        // Firebase sign out
-        mAuth.signOut();
-
-        // Google sign out
-        mGoogleSignInClient.signOut().addOnCompleteListener(this,
-                new OnCompleteListener<Void>() {
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        updateUI(null);
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "createUserWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            ChatData.getChatById(ApiHome.ID_CHAT,getMyChatAndJoint);// add user to CHAT
+
+                        } else {
+                            LoginActivity.this.rotateLoading.stop();
+                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                            showAlert("Create account",task.getException()+"");
+                        }
+
+                        // ...
                     }
                 });
-    }*/
+    }
+
+    // [END signin]
+
+    private void createOrLogin(){
+        if(validateForm()){
+            String email = this.editTextEmailAddress.getText().toString();
+            String password = this.editTextPassword.getText().toString();
+
+            this.rotateLoading.start();
+            if(this.sw.isChecked()){
+                // create a account
+
+                createWithEmailAndPass(email,password);
+
+            }
+            else{
+                signInEmailPass(email,password);
+            }
+        }
+        else{
+            showAlert("Error", "Ingrese su Email y Password ");
+        }
+
+    }
 
     private void revokeAccess() {
         // Firebase sign out
@@ -240,7 +296,7 @@ implements View.OnClickListener{
         if (user != null) {
             // iniciar MainActivity
 
-            Intent intent   = new Intent(LoginActivity.this,MainActivity.class);
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
 
             /*mStatusTextView.setText(user.getEmail());
@@ -259,11 +315,49 @@ implements View.OnClickListener{
         }
     }
 
+    private ValueEventListener getMyChatAndJoint = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            ChatData chatData = dataSnapshot.getValue(ChatData.class);
+            if (chatData != null) {
+                final Chat chat = chatData.toChat();
+                final User current = User.getCurrentUser();
+                UserData.save(current).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        UserData.jointToChat(current, chat).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                // GO TO MAIN ACTIVITY
+                                updateUI(mAuth.getCurrentUser());
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                LoginActivity.this.rotateLoading.stop();
+                                showAlert("Error",e.getMessage());
+                            }
+                        });
+                    }
+                });
+
+            }
+
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+            showAlert("Error",databaseError.getMessage());
+            LoginActivity.this.rotateLoading.stop();
+        }
+    };
+
+
     @Override
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.sign_in) {
-            signInEmailPass();
+            createOrLogin();
         } else if (i == R.id.sign_in_google_button) {
             signIn();
         }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
+import com.example.mrrobot.ihome.ui.chat.ChatFragment;
 import com.example.mrrobot.ihome.ui.family.LocationFragment;
 import com.example.mrrobot.ihome.ui.devices.DevicesFragment;
 import com.example.mrrobot.ihome.ui.home.HomeFragment;
@@ -35,8 +36,9 @@ public class MenuLeftComponent  {
 
         menuItems.add(new MenuItem("    Home",R.drawable.gradient));
         //menuItems.add(new MenuItem("        ",R.drawable.feed_bg));
-        menuItems.add(new MenuItem("    Devices",R.drawable.feed_bg));
+        menuItems.add(new MenuItem("    DevicePool",R.drawable.feed_bg));
         menuItems.add(new MenuItem("    Security",R.drawable.message_bg));
+        menuItems.add(new MenuItem("    Chat",R.drawable.music_bg));
         menuItems.add(new MenuItem("    Family",R.drawable.music_bg));
 
         //then add them to navigation drawer
@@ -74,6 +76,10 @@ public class MenuLeftComponent  {
                         break;
                     }
                     case 3:{
+                        fragmentClass = ChatFragment.class;
+                        break;
+                    }
+                    case 4:{
                         fragmentClass = LocationFragment.class;
                         break;
                     }

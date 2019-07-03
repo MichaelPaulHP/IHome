@@ -10,6 +10,8 @@ import android.support.annotation.NonNull;
 import android.widget.Toast;
 
 import com.example.mrrobot.ihome.Services.Utils;
+import com.example.mrrobot.ihome.models.User;
+import com.example.mrrobot.ihome.ui.chat.ParticipantsAdapter;
 import com.mapbox.android.core.location.LocationEngine;
 import com.mapbox.android.core.location.LocationEngineCallback;
 import com.mapbox.android.core.location.LocationEngineRequest;
@@ -45,13 +47,20 @@ public class LocationViewModel extends ViewModel implements
 
     private int cont=0;
     private MutableLiveData<String> counter= new MutableLiveData<>();
+    public  ParticipantsAdapter participantsAdapter;
+
     //private static LocationViewModel INSTANCE = null;
 
     public LocationViewModel() {
 
+        initParticipantsAdapter();
+    }
+    private void initParticipantsAdapter() {
+        this.participantsAdapter = new ParticipantsAdapter();
+        this.participantsAdapter.setParticipants(User.getCurrentUser().getMyChat().getParticipants());
+        //this.participantsAdapter.setOnItemClickListener(this);
 
     }
-
     /*public static LocationViewModel getInstance(Context  context){
         if(INSTANCE==null){
             INSTANCE = new LocationViewModel(context);
@@ -104,7 +113,7 @@ public class LocationViewModel extends ViewModel implements
 
         this.mapboxMap = mapboxMap;
         // SET STYLE
-        String themeCurrent = ThemeManager.getInstance(this.context).getCurrentThemeMap();
+        String themeCurrent = ThemeManager.getInstance(this.context).getMapStyle();
         this.mapboxMap.setStyle(themeCurrent, new Style.OnStyleLoaded() {
             @Override
             public void onStyleLoaded(@NonNull Style style) {

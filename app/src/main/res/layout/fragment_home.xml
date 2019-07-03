@@ -4,7 +4,7 @@
     xmlns:bind="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="android.view.View"/>
         <variable
             name="homeVM"
             type="com.example.mrrobot.ihome.ui.home.HomeViewModel" />
@@ -40,6 +40,27 @@
                     android:layout_height="50dp">
 
                     <Button
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="56dp"
+                        android:background="@android:color/transparent"
+                        android:drawableStart="@drawable/ic_chat_white_24dp"
+                        android:drawableTint="?attr/color_secondary" />
+                    <Button
+                        android:id="@+id/btnMessageNotification"
+                        android:layout_width="10dp"
+                        android:layout_height="15dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="50dp"
+                        android:background="@android:color/transparent"
+                        android:drawableTop="@drawable/ic_fiber_manual_record_black_24dp"
+                        android:visibility="@{homeVM.hasNewMessage ? View.VISIBLE: View.INVISIBLE}"
+                        android:drawableTint="@color/colorRed" />
+
+                    <Button
                         android:id="@+id/btnSettingsHome"
                         android:layout_width="28dp"
                         android:layout_height="28dp"
@@ -47,7 +68,6 @@
                         android:layout_alignParentEnd="true"
                         android:background="@android:color/transparent"
                         android:drawableStart="@drawable/ic_settings_white_24dp"
-
                         android:drawableTint="?attr/color_secondary" />
                 </RelativeLayout>
 

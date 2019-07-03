@@ -1,6 +1,7 @@
 package com.example.mrrobot.ihome.ui;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import android.widget.ImageButton;
 
 import com.example.mrrobot.ihome.DialogsFragment.ThemeDialogFragment;
 import com.example.mrrobot.ihome.Firebase.Auth;
+import com.example.mrrobot.ihome.LoginActivity;
 import com.example.mrrobot.ihome.models.User;
 import com.example.mrrobot.ihome.R;
 import com.example.mrrobot.ihome.Services.GlideApp;
@@ -51,6 +53,7 @@ public class SecurityFragment extends Fragment implements View.OnClickListener{
         view.findViewById(R.id.notificationSwContainer).setOnClickListener(this);
         swNotification = (SwitchIconView)view.findViewById(R.id.swNotification);
 
+        view.findViewById(R.id.btnLogout).setOnClickListener(this);
         return view;
     }
 
@@ -79,7 +82,11 @@ public class SecurityFragment extends Fragment implements View.OnClickListener{
         themeDialogFragment.show(getFragmentManager(), "themeDialogFragment");
 
     }
-
+    private void logout(){
+        Auth.getInstance().signOut();
+        Intent intent   = new Intent(getContext(), LoginActivity.class);
+        startActivity(intent);
+    }
     @Override
     public void onClick(View view) {
 
@@ -91,6 +98,8 @@ public class SecurityFragment extends Fragment implements View.OnClickListener{
             case R.id.notificationSwContainer:
                 this.swNotification.switchState();
                 break;
+            case R.id.btnLogout:
+                logout();
         }
 
     }

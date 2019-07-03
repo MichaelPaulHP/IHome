@@ -14,6 +14,7 @@ import com.example.mrrobot.ihome.components.MenuLeftComponent;
 import com.example.mrrobot.ihome.models.House;
 
 import com.example.mrrobot.ihome.Theme.ThemeManager;
+import com.example.mrrobot.ihome.models.User;
 import com.google.firebase.auth.FirebaseAuth;
 
 
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity
 
         // theme config
         this.themeManager= ThemeManager.getInstance(getApplicationContext());
-        this.setTheme(this.themeManager.getCurrentTheme());// set theme
+        this.setTheme(this.themeManager.getAppStyle());// set theme
 
         // set contentView
         setContentView(R.layout.activity_main);
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity
 
         // USER
         mAuth = FirebaseAuth.getInstance();
-
+        User.getCurrentUser().requestMyChats();
 
 
     }

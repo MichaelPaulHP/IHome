@@ -12,13 +12,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.mrrobot.ihome.ui.family.ChatFragment;
+
 import com.example.mrrobot.ihome.ui.family.LocationFragment;
 import com.example.mrrobot.ihome.R;
 
 /**
- * A simple {@link Fragment} subclass.
+ *no utilizado.
  */
+
 public class FamilyFragment extends Fragment  implements View.OnClickListener{
 
 
@@ -26,7 +27,7 @@ public class FamilyFragment extends Fragment  implements View.OnClickListener{
 
     private static boolean forToogle;// true ? chat:location
     private static LocationFragment locationFragment;
-    private static ChatFragment chatFragment;
+
     ViewPager vpPager;
     public FamilyFragment() {
         // Required empty public constructor
@@ -36,7 +37,6 @@ public class FamilyFragment extends Fragment  implements View.OnClickListener{
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.forToogle=true;
-        this.chatFragment = new ChatFragment();
         this.locationFragment = new LocationFragment();
 
     }
@@ -174,7 +174,7 @@ public class FamilyFragment extends Fragment  implements View.OnClickListener{
             forToogle=!forToogle;
             switch (position) {
                 case 0: // Fragment # 0 - This will show FirstFragment
-                    return chatFragment;
+                    return locationFragment;
                 case 1: // Fragment # 0 - This will show FirstFragment different title
                     return locationFragment;
                 default:

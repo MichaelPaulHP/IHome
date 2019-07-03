@@ -32,6 +32,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TO VIEW MODEL
+        mViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,15 +50,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         // DATA BINDING
         binding =
                 DataBindingUtil.inflate(inflater,R.layout.fragment_home, container, false);
-
-        // TO VIEW MODEL
-        mViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
-        mViewModel.setContext(getContext());
         binding.setHomeVM(mViewModel);
+
+
+
         // set events
         setEvents();
         // config deviceList
-        setupListDevice(binding.listSensor); // listSensor is recyclerView
+
+
+
 
         View view = binding.getRoot();
 
@@ -62,9 +69,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        setupListDevice(binding.listSensor); // listSensor is recyclerView
         Toast.makeText(getContext(),"werewr "+ SocketIO.getSocket().connected(),Toast.LENGTH_LONG).show();
 
         initViews();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
     }
 
     public void initViews(){
@@ -91,7 +105,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void setEvents(){
-
+        binding.btnMessageNotification.setOnClickListener(this);
         binding.btnSettingsHome.setOnClickListener(this);
         //binding.btnTest.setOnClickListener(this);
     }
@@ -110,6 +124,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             case R.id.btnSettingsHome:
                 showDialogTheme();
                 break;
+            case R.id.btnMessageNotification:
+                this.mViewModel.hasNewMessage.set(false);
 //            case R.id.btnTest:
 //                this.mViewModel.testMessage();
 //                break;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:float="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,7 +9,13 @@
     android:orientation="vertical"
     tools:context=".LoginActivity">
     <!--top-->
-
+    <com.victor.loading.rotate.RotateLoading
+        android:id="@+id/rotateloading"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerInParent="true"
+        app:loading_speed="8"
+        app:loading_width="4dp" />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
@@ -75,6 +81,7 @@
         android:layout_height="250dp"
         android:layout_gravity="fill"
         android:orientation="vertical"
+        android:layout_centerInParent="true"
         android:paddingHorizontal="80dp">
 
         <LinearLayout
@@ -171,19 +178,19 @@
 
         android:gravity="bottom|right">
 
-        <!--
+
         <Switch
-            android:id="@+id/switch2"
+            android:id="@+id/switchCreateAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="34dp"
             android:layout_weight="1"
-            android:checked="true"
-            android:text="Recordarme    "
+            android:checked="false"
+            android:text="Crear Una Cuenta"
             android:textAlignment="textEnd"
             android:textColor="#303030"
             android:textColorLink="#009788" />
-        -->
+
         <Button
             android:id="@+id/sign_in"
             android:layout_width="180dp"
@@ -197,4 +204,4 @@
 
 
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

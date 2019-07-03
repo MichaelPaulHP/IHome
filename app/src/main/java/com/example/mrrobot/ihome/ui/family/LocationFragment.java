@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +31,8 @@ public class LocationFragment extends Fragment  {
 
     LocationViewModel locationViewModel;
     FragmentLocationBinding binding;
+
+    RecyclerView recyclerViewFamiliars;
     //private LocationListener mListener;
 
     //private OnMapReadyCallback mOnMapReadyCallback;
@@ -80,15 +84,21 @@ public class LocationFragment extends Fragment  {
             }
         });
         */
+        recyclerViewFamiliars=binding.recyclerViewListFamiliars;
         binding.locationCounter.setText("my position");
         locationConfig();
-
+        initRecyclerViewAdapter();
 
 
 
         this.binding.setLocationVM(this.locationViewModel);
 
         return binding.getRoot();
+    }
+    private void initRecyclerViewAdapter() {
+
+        this.recyclerViewFamiliars.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        this.recyclerViewFamiliars.setAdapter(this.locationViewModel.participantsAdapter);
     }
 
     private void locationConfig() {

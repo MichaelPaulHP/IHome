@@ -1,9 +1,87 @@
 package com.example.mrrobot.ihome.models;
 
-public class Message {
-    public String value;
+import com.stfalcon.chatkit.commons.models.IMessage;
+import com.stfalcon.chatkit.commons.models.IUser;
 
-    public Message(String value) {
-        this.value = value;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class Message implements IMessage,Cloneable
+{
+
+    private User user;
+
+    private Date createAt;
+    private String text;
+    private String id;
+
+    public Message() {
+    }
+
+    public Message(User user) {
+        this.user = user;
+        this.createAt = Calendar.getInstance().getTime();
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setCreateAt(Date createAt) {
+        this.createAt = createAt;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+
+    /**
+     * Returns message identifier
+     *
+     * @return the message id
+     */
+
+    @Override
+    public String getId() {
+        return this.id;
+    }
+
+    /**
+     * Returns message text
+     *
+     * @return the message text
+     */
+    @Override
+    public String getText() {
+        return this.text;
+    }
+
+    /**
+     * Returns message author. See the {@link IUser} for more details
+     *
+     * @return the message author
+     */
+    @Override
+    public IUser getUser() {
+        return this.user;
+    }
+
+    /**
+     * Returns message creation date
+     *
+     * @return the message creation date
+     */
+    @Override
+    public Date getCreatedAt() {
+        return this.createAt;
+    }
+
+    @Override
+    public Message clone() throws CloneNotSupportedException {
+        return (Message) super.clone();
     }
 }

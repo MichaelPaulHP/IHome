@@ -20,7 +20,7 @@ public class ServiceLocation extends Service {
 
 
     private Context ctx;
-    FollowLocationThread followLocationThread;
+    //FollowLocationThread followLocationThread;
 
 
     //METHODS
@@ -41,7 +41,7 @@ public class ServiceLocation extends Service {
         super.onCreate();
         Log.println(Log.INFO, "ServiceLocation", "service created");
         this.ctx = getBaseContext();
-        this.followLocationThread = new FollowLocationThread(this.ctx);
+        //this.followLocationThread = new FollowLocationThread(this.ctx);
 
         //this.followLocationThread.start();
 
@@ -51,14 +51,14 @@ public class ServiceLocation extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         Log.println(Log.INFO, "ServiceLocation", "service running in " + Thread.currentThread().getName());
-        Log.println(Log.INFO, "ServiceLocation", "state 1 " + this.followLocationThread.getState());
+        //Log.println(Log.INFO, "ServiceLocation", "state 1 " + this.followLocationThread.getState());
 
-        this.followLocationThread.start();
+        //this.followLocationThread.start();
         /*if (this.followLocationThread.getState().equals(Thread.State.TERMINATED)) {
             this.followLocationThread.start();
         }*/
 
-        Log.println(Log.INFO, "ServiceLocation", "state 2 " + this.followLocationThread.getState());
+        //Log.println(Log.INFO, "ServiceLocation", "state 2 " + this.followLocationThread.getState());
         /*try {
             this.followLocationThread.wait();
             Log.println(Log.INFO, "ServiceLocation", "state 2  "+this.followLocationThread.getState());
@@ -72,9 +72,9 @@ public class ServiceLocation extends Service {
 
     @Override
     public void onDestroy() {
-        Log.println(Log.INFO, "ServiceLocation", "Thread follow.. is " + this.followLocationThread.getState());
+        //Log.println(Log.INFO, "ServiceLocation", "Thread follow.. is " + this.followLocationThread.getState());
         Log.println(Log.INFO, "ServiceLocation", "service destroy");
-        this.followLocationThread.sendMessage("service destroy");
+        //this.followLocationThread.sendMessage("service destroy");
         super.onDestroy();
     }
 

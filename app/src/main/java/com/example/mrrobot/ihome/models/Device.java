@@ -43,6 +43,7 @@ public class Device extends BaseObservable {
         this.state = stateDevice.DISCONNECT;
         this.value="false";
     }
+
     public Device(String name, String mode, int icon,String message,stateDevice state) {
         this.name = name;
         this.mode = mode;
