@@ -321,11 +321,12 @@ public class LoginActivity extends AppCompatActivity
             ChatData chatData = dataSnapshot.getValue(ChatData.class);
             if (chatData != null) {
                 final Chat chat = chatData.toChat();
-                final User current = User.getCurrentUser();
-                UserData.save(current).addOnSuccessListener(new OnSuccessListener<Void>() {
+                FirebaseUser userFirebase = mAuth.getCurrentUser();
+                final User user = new User(userFirebase.getUid(),userFirebase.getUid(),userFirebase.getEmail(),"http://i.imgur.com/pv1tBmT.png");
+                UserData.save(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        UserData.jointToChat(current, chat).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        UserData.jointToChat(user, chat).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 // GO TO MAIN ACTIVITY
