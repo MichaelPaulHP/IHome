@@ -11,7 +11,7 @@ public class DevicePool {
 
     public static Device[] devices={
             new Device("LED","OUTPUT", R.drawable.ic_light),
-            new Device("LED SALA","OUTPUT", R.drawable.ic_light),
+            new Device("LED_SALA","OUTPUT", R.drawable.ic_light),
             new Device("GARAGE","OUTPUT", R.drawable.ic_menu_black_24dp),
             new Device("VENTILADOR","OUTPUT", R.drawable.ic_av_timer_black_24dp),
             new Device("FIRE","INPUT",R.drawable.ic_fire,"Normal, sin Humo",stateDevice.CONNECTED),

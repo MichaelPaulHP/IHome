@@ -318,7 +318,11 @@ public class LoginActivity extends AppCompatActivity
     private ValueEventListener getMyChatAndJoint = new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            int a = 56;
+            int b=34;
+            int suma= a+b;
             ChatData chatData = dataSnapshot.getValue(ChatData.class);
+            //ChatData chatData=null;
             if (chatData != null) {
                 final Chat chat = chatData.toChat();
                 FirebaseUser userFirebase = mAuth.getCurrentUser();
@@ -349,6 +353,7 @@ public class LoginActivity extends AppCompatActivity
         @Override
         public void onCancelled(@NonNull DatabaseError databaseError) {
             showAlert("Error",databaseError.getMessage());
+            Log.e("LOGIN",databaseError.getMessage());
             LoginActivity.this.rotateLoading.stop();
         }
     };

@@ -47,7 +47,7 @@ public class House extends BaseObservable {
 
     private void defineEvents() {
         this.socketIO.on("changeStateHouse", onChangeStateHouse);
-        this.socketIO.on("changeState", onChangeState);
+        this.socketIO.on("changeState", onChangeStateOfDevice);
     }
 
     private void updateDevices() {
@@ -84,7 +84,7 @@ public class House extends BaseObservable {
             }
         }
     };
-    private Emitter.Listener onChangeState = new Emitter.Listener() {
+    /*private Emitter.Listener onChangeState = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
             try {
@@ -96,7 +96,7 @@ public class House extends BaseObservable {
                 return;
             }
         }
-    };
+    };*/
 
     public void disconnect() {
         SocketIO.getSocket().disconnect();
@@ -111,6 +111,43 @@ public class House extends BaseObservable {
         isConnected = connected;
         notifyPropertyChanged(BR.connected);
     }
+    private boolean toBoolean(String x){
+        if(x.equals("0")){
+            return false;
+        }
+        else{return true;}
+        //return Boolean.parseBoolean(x);
+    }
+    private Emitter.Listener onChangeStateOfDevice = new Emitter.Listener() {
 
+        @Override
+        public void call(Object... args) {
+
+
+            try {
+                JSONObject data = (JSONObject) args[0];
+                if (data == null) {
+                    return;
+                }
+                String name = data.getString("name");
+                String state = data.getString("state");
+                Device device=findDeviceByName(name);
+
+                if(device==null){
+                    return ;
+                }
+                boolean newActive=toBoolean(state);
+                if(!device.getValue().equals(state)){
+                    device.changeValueBoolean();
+                }
+
+
+            } catch (JSONException e) {
+
+                return;
+            }
+            // show in list
+        }
+    };
 
 }
